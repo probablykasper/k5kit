@@ -31,6 +31,13 @@ export function auto_snapshot() {
 					element instanceof HTMLSelectElement ||
 					element instanceof HTMLTextAreaElement
 				) {
+					if (
+						element instanceof HTMLInputElement &&
+						element.type === 'checkbox' &&
+						!element.checked
+					) {
+						continue
+					}
 					let key = element.dataset.snapshot
 					if (!key || key === 'true' || key === 'false') {
 						key = element.name
@@ -59,7 +66,7 @@ export function auto_snapshot() {
 						continue
 					}
 					if (element instanceof HTMLInputElement && element.type === 'checkbox') {
-						element.checked = value[key] === 'on'
+						element.checked = true
 					} else {
 						element.value = value[key]
 					}
